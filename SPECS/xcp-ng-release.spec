@@ -24,7 +24,7 @@
 
 Name:           xcp-ng-release
 Version:        8.2.1
-Release:        16
+Release:        16.1
 Summary:        XCP-ng release file
 Group:          System Environment/Base
 License:        GPLv2
@@ -104,6 +104,7 @@ Patch7: 0007-Update-CentOS-and-EPEL-repo-files.patch
 Patch8: 0008-Sync-with-hotfix-XS82ECU1072.patch
 Patch9: 0009-fix-curl-resolve-TLS-issue-caused-by-restrictive-con.patch
 Patch10: 0010-fix-curl-caused-by-incorrect-fix.patch
+Patch11: 0011-Apply-branding.patch
 
 %description
 XCP-ng release files

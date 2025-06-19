@@ -1,0 +1,2206 @@
+From b8b1fa708fe14584c62a6e5e5fac95ab9486531f Mon Sep 17 00:00:00 2001
+From: German Espinoza <gerespinozat@gmail.com>
+Date: Thu, 19 Jun 2025 17:23:23 -0500
+Subject: [PATCH] Custom patch (#1)
+
+* update landing
+
+* download from custom URL
+
+---------
+
+Co-authored-by: German Espinoza <gespinoza@whitestack.com>
+---
+ .../opt/xensource/www/XCP-ng-index.html       | 241 ++++---
+ .../opt/xensource/www/asset/deploy.js         | 294 ++++++++
+ .../opt/xensource/www/asset/favicon.png       | Bin 2124 -> 15406 bytes
+ .../opt/xensource/www/asset/logo_white.svg    | 626 ++++++++++++++++++
+ .../opt/xensource/www/asset/style.css         | 109 ++-
+ src/xenserver/opt/xensource/www/asset/xoa.jpg | Bin 18869 -> 16317 bytes
+ 6 files changed, 1151 insertions(+), 119 deletions(-)
+ create mode 100644 src/xenserver/opt/xensource/www/asset/deploy.js
+ create mode 100644 src/xenserver/opt/xensource/www/asset/logo_white.svg
+
+diff --git a/src/xenserver/opt/xensource/www/XCP-ng-index.html b/src/xenserver/opt/xensource/www/XCP-ng-index.html
+index 7154b1f..ca70d56 100644
+--- a/src/xenserver/opt/xensource/www/XCP-ng-index.html
++++ b/src/xenserver/opt/xensource/www/XCP-ng-index.html
+@@ -6,8 +6,9 @@
+ 
+ <head>
+   <meta charset="utf-8">
+-  <title>Welcome to XCP-ng @PRODUCT_VERSION@</title>
++  <title>Welcome to Nephora</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <script src="asset/deploy.js"></script>
+   <link rel="stylesheet" href="asset/flexboxgrid.min.css" type="text/css" />
+   <link rel="stylesheet" href="asset/icons-font/icons.css" />
+   <link rel="icon" type="image/png" href="asset/favicon.png" />
+@@ -16,81 +17,28 @@
+ 
+ <body>
+   <div class="wrap container-fluid">
+-    <div>
+-      <h2 class="title">Welcome to XCP-ng @PRODUCT_VERSION@</h2>
+-      <div class="row">
+-        <div class="col-xs">
+-          <a href="https://xcp-ng.org/docs/" class="btn">Documentation</a>
+-          <a href="https://xcp-ng.org/blog/" class="btn" style="background-color:#263740">Latest News</a>
+-        </div>
+-      </div>
+-    </div>
+-    <hr />
++    <img class="logo" src="./asset/logo_white.svg" alt="Nephora">
+     <div class="section">
+-      <h3 class="subtitle">Management tools</h3>
+-      <p>
+-        You have various options to manage your XCP-ng - choose the one that
+-        fits best!
+-      </p>
+       <div class="row">
+-        <div class="col-md">
++        <div class="col-md m-5">
+           <div class="box">
+-            <h4>Xen Orchestra</h4>
+-            <a href="https://vates.tech/deploy"><img class="preview" src="./asset/xoa.jpg" alt="Xen Orchestra" /></a>
+-            <p class="options">
+-              <span class="tooltip">
+-                <a href="https://xen-orchestra.com/#!/xo-features/webinterface?pk_campaign=xcp-ng-html"
+-                  class="text-decoration-none">
+-                  <i class="icon icon-browser" style="font-size: 1.3em;" title="Web based icon"></i>
+-                  <span class="tooltiptext">Web based</span>
+-                </a>
+-              </span>
+-              <span class="tooltip">
+-                <a href="https://github.com/vatesfr/xen-orchestra" class="text-decoration-none">
+-                  <i class="icon icon-git" style="font-size: 1.5em;" title="Open source icon"></i>
+-                  <span class="tooltiptext">Open Source</span>
+-                </a>
+-              </span>
+-              <span class="tooltip">
+-                <a href="https://xen-orchestra.com/#!/xo-home?pk_campaign=xcp-ng-html" class="text-decoration-none">
+-                  <i class="icon icon-user-headset" style="font-size: 1.5em;" title="headset icon"></i>
+-                  <span class="tooltiptext">Pro Support available</span>
+-                </a>
+-              </span>
+-            </p>
++            <h3 class="subtitle">Nephora XO</h4>
++            <a href="#ex1" rel="modal:open"><img class="preview" src="./asset/xoa.jpg" alt="Nephora XO" /></a>
+             <p class="management">
+               XO comes in a virtual appliance (XOA) covering all the management,
+               backup and cloud features you may need in your infrastructure,
+               directly from your web browser.
+             </p>
+             <p>
+-              <a href="https://vates.tech/deploy" class="btn">Quick deploy</a>
++              <a href="#ex1" class="btn" rel="modal:open">Quick deploy</a>
+             </p>
+           </div>
+         </div>
+-        <div class="col-md">
++        <div class="col-md m-5">
+           <div class="box">
+-            <h4>xe CLI</h4>
++            <h3 class="subtitle">xe CLI</h4>
+             <a href="https://xcp-ng.org/docs/cli_reference.html"><img class="preview" src="./asset/xecli.jpg"
+                 alt="Xe Cli" /></a>
+-            <p class="options">
+-              <span class="tooltip">
+-                <i class="icon icon-browser" style="font-size: 1.3em; color: #263740;"></i>
+-                <span class="tooltiptext">CLI only</span>
+-              </span>
+-              <span class="tooltip">
+-                <a href="https://github.com/xapi-project/xen-api" class="text-decoration-none">
+-                  <i class="icon icon-git" style="font-size: 1.5em;"></i>
+-                  <span class="tooltiptext">Open Source</span>
+-                </a>
+-              </span>
+-              <span class="tooltip">
+-                <a href="https://xcp-ng.com?pk_campaign=xe-xcp-ng-html" class="text-decoration-none">
+-                  <i class="icon icon-user-headset" style="font-size: 1.5em;"></i>
+-                  <span class="tooltiptext">Pro Support available</span>
+-                </a>
+-              </span>
+-            </p>
+             <p class="management">
+               xe CLI is a powerful command line interface available on this host. You can do any XCP-ng operation from
+               there. To learn more about it, please read our documentation.
+@@ -102,54 +50,131 @@
+         </div>
+       </div>
+     </div>
+-    <hr />
+-    <div class="section">
+-      <h3 class="subtitle">Pro Support</h3>
+-      <p>
+-        XCP-ng is a high performance enterprise level hypervisor, responding
+-        to the most demanding company activities from SMBs to Datacenters. We
+-        have your back when it comes to pro support. Visit our dedicated
+-        website to learn more.
+-      </p>
+-      <div class="row">
+-        <div class="col-xs">
+-          <div class="support">
+-            <a href="https://xcp-ng.com?pk_campaign=xcp-ng-html" class="text-decoration-none">
+-              <i class="icon icon-user-headset"></i></a>
+-            <p class="description">Pro Support 24/7/365</p>
+-          </div>
+-        </div>
+-        <div class="col-xs">
+-          <div class="support">
+-            <a href="https://xcp-ng.com?pk_campaign=xcp-ng-html" class="text-decoration-none">
+-              <i class="icon icon-terminal"></i></a>
+-            <p class="description">SSH remote support</p>
+-          </div>
+-        </div>
+-        <div class="col-xs">
+-          <div class="support">
+-            <a href="https://xcp-ng.com?pk_campaign=xcp-ng-html" class="text-decoration-none">
+-              <i class="icon icon-wrench"></i></a>
+-            <p class="description">Setup assistance</p>
+-          </div>
+-        </div>
+-      </div>
+-      <p>
+-        <a href="https://xcp-ng.com?pk_campaign=xcp-ng-html" class="btn">Go Pro</a>
+-      </p>
+-    </div>
+-    <hr />
+-    <div class="section">
+-      <h3 class="subtitle">Join our community</h3>
+-      <p class="description">
+-        Thousands of people are using XCP-ng, hundreds are contributing on our
+-        community forum. Become a part of our community!
+-      </p>
+-      <p>
+-        <a href="https://xcp-ng.org/forum" class="btn">Community forum</a>
+-      </p>
++    <!-- Modalcontent -->
++    <div id="ex1" class="modal">
++      <h3 class="subtitle">Nephora XOA - Quick deploy</h3>
++      <p style="font-size: small;">This will download and deploy a new virtual machine on your host, called "XOA" (Xen
++        Orchestra virtual Appliance).</p>
++      <form id="connect" onsubmit="event.preventDefault(); connect()">
++        <fieldset>
++          <p>
++            <label>
++              Host username<br />
++              <input type="text" disabled value="root" />
++            </label>
++          </p>
++          <p>
++            <label>
++              Host password<br />
++              <input type="password" id="pwd" />
++            </label>
++          </p>
++          <p>
++            <em><i class="fas fa-info-circle"></i> This host's root
++              credentials</em>
++          </p>
++          <p><button class="btn" type="submit">Connect</button></p>
++        </fieldset>
++      </form>
++      <form id="config" onsubmit="event.preventDefault(); submitConfig()" style="display: none">
++        <fieldset>
++          <p>
++            <label>
++              Select a storage<br />
++              <select id="srs"></select>
++            </label>
++          </p>
++          <p>
++            <label>
++              Select a network<br />
++              <select id="networks"></select>
++            </label>
++          </p>
++          <p id="ip-error" style="display: none">
++            <em class="danger"><i class="fas fa-exclamation-triangle"></i>
++              <span>You entered the same IP address as your host. Please choose a
++                different one for your XOA:</span></em>
++          </p>
++          <p>
++            <label>
++              XOA VM IP address<br />
++              <input type="text" id="ip" />
++            </label>
++          </p>
++          <p>
++            <label>
++              Netmask<br />
++              <input type="text" placeholder="255.255.255.0" id="netmask" />
++            </label>
++          </p>
++          <p>
++            <label>
++              Gateway<br />
++              <input type="text" id="gateway" />
++            </label>
++          </p>
++          <p>
++            <label>
++              DNS<br />
++              <input type="text" placeholder="8.8.8.8" id="dns" />
++            </label>
++          </p>
++          <p>
++            <em><i class="fas fa-info-circle"></i> Leave everything empty to
++              use DHCP. Provide all the information otherwise.</em>
++          </p>
++          <p><button class="btn" type="submit">Next</button></p>
++        </fieldset>
++      </form>
++      <form id="accounts" onsubmit="event.preventDefault(); deploy()" style="display: none">
++        <fieldset>
++          <h4>Create an Admin account on your XOA</h4>
++          <p>
++            <label>
++              Admin username<br />
++              <input type="text" placeholder="admin" id="adminEmail" /> </label><br />
++            <label>
++              Admin password<br />
++              <input type="password" placeholder="admin" id="adminPwd" />
++            </label>
++          </p>
++          <h4>Download your XOA ISO</h4>
++          <p>
++            <label>
++              URL<br />
++              <input type="text" id="downloadUrl" /> </label><br />
++            <label>
++              Username<br />
++              <input type="text" placeholder="Leave empty for anonymous download" id="downloadEmail" /> </label><br />
++            <label>
++              Password<br />
++              <input type="password" placeholder="Leave empty for anonymous download" id="downloadPwd" />
++            </label>
++          </p>
++          <h4>Set the XOA machine password</h4>
++          <p>
++            <label>
++              Login<br />
++              <input type="text" disabled value="xoa" /> </label><br />
++            <label>
++              Password<br />
++              <input type="password" placeholder="Account disabled if empty" id="xoaPwd" />
++            </label>
++          </p>
++          <p>
++            <em><i class="fas fa-info-circle"></i> You can do this later</em>
++          </p>
++          <p>
++            <button class="btn" type="submit">
++              <i class="spinner" style="display: none;"></i>
++              <span id="deploy">Deploy</span>
++            </button>
++          </p>
++        </fieldset>
++      </form>
++      <br />
++      <a href="#" rel="modal:close">Close</a>
+     </div>
+   </div>
+ </body>
+-
+ </html>
+diff --git a/src/xenserver/opt/xensource/www/asset/deploy.js b/src/xenserver/opt/xensource/www/asset/deploy.js
+new file mode 100644
+index 0000000..ef31bd1
+--- /dev/null
++++ b/src/xenserver/opt/xensource/www/asset/deploy.js
+@@ -0,0 +1,294 @@
++let call,
++  vmRef,
++  vmIp,
++  host = window.location.host;
++
++function _handleUserError(error) {
++  alert(typeof error === "object" && !(error instanceof Error) ? JSON.stringify(error, null, 2) : (error && error.message) || error);
++}
++
++function setStep(previousStep, nextStep) {
++  document.querySelector(`#${previousStep}`).style.display = "none";
++  document.querySelector(`#${nextStep}`).style.display = "block";
++}
++
++function _jsonRpcCall(url, method, params) {
++  console.log(`-> ${method}(${JSON.stringify(params)})`);
++  return window
++    .fetch(url, {
++      body: JSON.stringify({
++        id: 0,
++        jsonrpc: "2.0",
++        method,
++        params,
++      }),
++      method: "POST",
++      headers: new Headers({
++        Accept: "application/json",
++        "Content-Type": "application/json",
++      }),
++    })
++    .then((res) => {
++      if (!res.ok) {
++        throw res.status;
++      }
++      return res.json().then((json) => {
++        if (json.result !== undefined) {
++          console.log(`<- ${JSON.stringify(json.result)}`);
++          return json.result;
++        }
++        console.error(`<x ${JSON.stringify(json.error)}`);
++        throw json.error;
++      });
++    });
++}
++function _call(method, params) {
++  return _jsonRpcCall(`//${host}/jsonrpc`, method, params).catch((error) => {
++    if (error && error.message === "HOST_IS_SLAVE") {
++      console.log("Host is slave, changing host to master", error.data[0]);
++      host = error.data[0];
++      return _call(method, params);
++    }
++    throw error;
++  });
++}
++
++function connect() {
++  document.querySelector("#connect fieldset").setAttribute("disabled", true);
++  _call("session.login_with_password", ["root", document.querySelector("#pwd").value, "2.3", "XOA deploy"])
++    .then((sessionRef) => {
++      call = (method, ...params) => _call(method, [sessionRef].concat(params));
++    })
++    .then(() => Promise.all([call("SR.get_all_records"), call("pool.get_all_records"), call("network.get_all_records"), call("PIF.get_all_records")]))
++    .then(([srs, pools, networks, pifs]) => {
++      setStep("connect", "config");
++      const selectSr = document.querySelector("#srs");
++      let sr;
++
++      Object.keys(srs).forEach((srRef) => {
++        sr = srs[srRef];
++        if (sr.content_type !== "iso" && sr.physical_size > 0) {
++          let option = document.createElement("option");
++          option.value = srRef;
++          option.textContent = `${sr.name_label} - ${Math.round((sr.physical_size - sr.physical_utilisation) / Math.pow(1024, 3))} GiB left`;
++          selectSr.append(option);
++        }
++      });
++      const { default_SR } = pools[Object.keys(pools)[0]];
++
++      if (default_SR !== undefined) {
++        selectSr.value = default_SR;
++      }
++      const selectNetwork = document.querySelector("#networks");
++      Object.keys(networks).forEach((networkRef) => {
++        let network = networks[networkRef];
++        const option = document.createElement("option");
++        option.value = networkRef;
++        option.dataset.mtu = network.MTU;
++        option.textContent = network.name_label;
++        selectNetwork.append(option);
++      });
++      const managementPif = Object.values(pifs).find((pif) => pif.management);
++      if (managementPif && managementPif.network !== undefined) {
++        selectNetwork.value = managementPif.network;
++      }
++    })
++    .catch((err) => {
++      document.querySelector("#connect fieldset").removeAttribute("disabled");
++      this._handleUserError(err);
++    });
++}
++
++function submitConfig() {
++  const ipError = document.querySelector("#ip-error");
++  ipError.style.display = "none";
++  const ip = document.querySelector("#ip").value;
++  if (ip === window.location.hostname) {
++    ipError.style.display = "block";
++    return;
++  }
++  setStep("config", "accounts");
++}
++
++function deploy() {
++  const status = (text) => (document.querySelector("#deploy").innerText = text);
++  document.querySelector(".spinner").style.display = "inherit";
++  const srRef = document.querySelector("#srs").value;
++  status("Deploying Nephora XOA");
++  document.querySelector("#accounts fieldset").setAttribute("disabled", true);
++  // let registrationToken;
++  // const updaterEmail = document.querySelector("#updaterEmail").value;
++  // const updaterPwd = document.querySelector("#updaterPwd").value;
++  let downloadUrl = document.querySelector("#downloadUrl").value;
++  // TODO: download ISO with user and pass
++  let downloadEmail = document.querySelector("#downloadEmail").value;
++  let downloadPwd = document.querySelector("#downloadPwd").value;
++  Promise.resolve()
++    // .then(() => {
++    //   if (updaterEmail && updaterPwd) {
++    //     return _jsonRpcCall("https://xen-orchestra.com/api", "registerXoa", {
++    //       email: updaterEmail,
++    //       password: updaterPwd,
++    //     }).then((_registrationToken) => {
++    //       registrationToken = _registrationToken;
++    //     });
++    //   }
++    // })
++    .then(() =>
++      call(
++        "VM.import",
++        downloadUrl,
++        srRef,
++        false, // full_restore
++        false // force
++      )
++    )
++    .then(([_vmRef]) => {
++      vmRef = _vmRef;
++      status("Configuring XOA…");
++      const promises = [];
++      const ip = document.querySelector("#ip").value;
++      if (ip) {
++        promises.push(
++          call("VM.add_to_xenstore_data", vmRef, "vm-data/ip", ip),
++          call("VM.add_to_xenstore_data", vmRef, "vm-data/netmask", document.querySelector("#netmask")?.value || "255.255.255.0"),
++          call("VM.add_to_xenstore_data", vmRef, "vm-data/gateway", document.querySelector("#gateway")?.value || ""),
++          call("VM.add_to_xenstore_data", vmRef, "vm-data/dns", document.querySelector("#dns").value || "8.8.8.8")
++        );
++      }
++      const email = document.querySelector("#adminEmail").value;
++      const password = document.querySelector("#adminPwd").value;
++      if (email && password) {
++        promises.push(call("VM.add_to_xenstore_data", vmRef, "vm-data/admin-account", JSON.stringify({ email, password })));
++      }
++      // if (registrationToken) {
++      //   promises.push(call("VM.add_to_xenstore_data", vmRef, "vm-data/xoa-updater-credentials", JSON.stringify({ email: updaterEmail, registrationToken })));
++      // }
++      const xoaPwd = document.querySelector("#xoaPwd").value;
++      if (xoaPwd) {
++        promises.push(call("VM.add_to_xenstore_data", vmRef, "vm-data/system-account-xoa-password", xoaPwd));
++      }
++      promises.push(
++        call(
++          "VM.add_to_xenstore_data",
++          vmRef,
++          "vm-data/xen-servers",
++          JSON.stringify([
++            {
++              allowUnauthorized: true,
++              host,
++              password: document.querySelector("#pwd").value,
++              username: "root",
++            },
++          ])
++        )
++      );
++
++      const network = document.querySelector("#networks").value;
++      const MTU = document.querySelector("#networks option:checked").dataset.mtu;
++      promises.push(
++        call("VM.get_VIFs", vmRef)
++          .then(([vifRef]) => call("VIF.destroy", vifRef))
++          .then(() => call("VM.get_allowed_VIF_devices", vmRef))
++          .then((devices) =>
++            call("VIF.create", {
++              device: devices[0],
++              MAC: "",
++              MTU,
++              network,
++              other_config: {},
++              qos_algorithm_params: {},
++              qos_algorithm_type: "",
++              VM: vmRef,
++            })
++          )
++      );
++
++      return Promise.all(promises);
++    })
++    .then(() => {
++      status("Starting XOA…");
++      return call(
++        "VM.start",
++        vmRef,
++        false, // start_paused
++        false // force
++      );
++    })
++    .then(() => call("VM.get_guest_metrics", vmRef))
++    .then((metricsRef) => {
++      status("Almost there…");
++      let attempts = 120;
++      const waitForIp = () => {
++        return call("VM_guest_metrics.get_networks", metricsRef).then((networks) => {
++          if (networks && networks["0/ip"] !== undefined) {
++            return networks["0/ip"];
++          }
++          if (attempts-- === 0) {
++            throw "XOA not responding";
++          }
++          return new Promise((resolve, reject) => setTimeout(() => waitForIp().then(resolve, reject), 1e3));
++        });
++      };
++      return waitForIp();
++    })
++    .then((ip) => {
++      vmIp = ip;
++      return Promise.all(
++        ["admin-account", "dns", "gateway", "ip", "netmask", "xen-servers", "xoa-updater-credentials"].map((key) =>
++          call("VM.remove_from_xenstore_data", vmRef, `vm-data/${key}`).catch((error) => {
++            console.warn("VM.remove_from_xenstore_data", key, error);
++          })
++        )
++      );
++    })
++    .then(() => {
++      status("XOA is ready! Redirecting…");
++      setTimeout(() => {
++        window.location = `https://${document.querySelector("#ip").value || vmIp}`;
++      }, 3e3);
++    })
++    .catch((err) => {
++      document.querySelector("#accounts fieldset").removeAttribute("disabled");
++      document.querySelector(".spinner").style.display = "none";
++      status("Deploy");
++      this._handleUserError(err);
++    });
++}
++
++// Replacement for jquery modal
++
++window.addEventListener("DOMContentLoaded", () => {
++  [...document.querySelectorAll("[rel='modal:open']")].forEach((modalTrigger) => {
++    modalTrigger.addEventListener("click", (e) => {
++      e.preventDefault();
++
++      document.documentElement.style.overflow = "hidden";
++      const modal = document.querySelector(modalTrigger.getAttribute("href"));
++      const modalContainer = document.createElement("div");
++      modalContainer.className = "modal-container blocker current";
++      modalContainer.append(modal);
++      modal.style.display = "block";
++      document.body.append(modalContainer);
++      // close button
++      const closeButton = document.createElement("a");
++      closeButton.setAttribute("href", "#close-modal");
++      closeButton.setAttribute("rel", "modal:close");
++      closeButton.setAttribute("class", "close-modal");
++      closeButton.title = "Close modal";
++      modal.append(closeButton);
++
++      const close = (e) => {
++        e.preventDefault();
++        modal.style.display = "none";
++        document.body.appendChild(modal);
++        modalContainer.remove();
++        closeButton.remove();
++        document.documentElement.style.overflow = "";
++      };
++      [...modalContainer.querySelectorAll("[rel='modal:close']")].forEach((button) => {
++        button.addEventListener("click", close);
++      });
++    });
++  });
++});
+diff --git a/src/xenserver/opt/xensource/www/asset/favicon.png b/src/xenserver/opt/xensource/www/asset/favicon.png
+index 5a7c9a14fdebb2141db5b55a43b71562dfe65dfa..c92f0aa66e43ddad8313e1e3e9be6db5f66e6886 100644
+GIT binary patch
+literal 15406
+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
+
+literal 2124
+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
+C6(LXn
+
+diff --git a/src/xenserver/opt/xensource/www/asset/logo_white.svg b/src/xenserver/opt/xensource/www/asset/logo_white.svg
+new file mode 100644
+index 0000000..22eafce
+--- /dev/null
++++ b/src/xenserver/opt/xensource/www/asset/logo_white.svg
+@@ -0,0 +1,626 @@
++<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
++	 width="400px" viewBox="0 0 1598 355" enable-background="new 0 0 1598 355" xml:space="preserve">
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M1599.000000,284.000000 
++	C1599.000000,307.992737 1599.000000,331.985474 1599.000000,356.000000 
++	C1164.971924,356.000000 730.943909,356.000000 296.463196,355.619263 
++	C297.311310,354.668640 298.563660,353.915314 299.920319,353.556702 
++	C316.516998,349.169250 330.385132,340.503967 340.667938,326.714294 
++	C350.290466,313.810150 356.116211,299.543854 356.074982,282.983429 
++	C355.898865,212.227142 356.035156,141.470108 355.918610,70.713593 
++	C355.911072,66.139534 355.240601,61.427299 354.019501,57.017204 
++	C346.364319,29.370138 328.405396,11.656334 301.233765,2.977173 
++	C300.367096,2.700337 299.739227,1.675913 299.000000,0.999997 
++	C732.219055,1.000000 1165.438110,1.000000 1599.000000,1.000000 
++	C1599.000000,93.361084 1599.000000,185.722595 1598.596924,278.513153 
++	C1597.802368,278.100494 1597.107544,277.273224 1597.066650,276.414795 
++	C1596.648438,267.632812 1596.207886,258.848602 1596.018433,250.059708 
++	C1595.406250,221.659042 1597.709595,193.168152 1593.925293,164.872025 
++	C1591.501221,146.747604 1583.104492,131.692734 1567.668701,121.530144 
++	C1555.473755,113.501198 1541.375244,110.435516 1526.973267,110.172455 
++	C1516.414307,109.979584 1505.604004,110.246124 1495.309082,112.315079 
++	C1482.892822,114.810371 1470.887207,119.377197 1458.738525,123.158630 
++	C1455.188232,124.263710 1454.420410,126.572838 1455.829834,130.163712 
++	C1457.273193,133.840942 1457.978638,137.802948 1459.092896,141.615234 
++	C1460.873291,147.705460 1462.724121,153.775024 1464.638672,160.164948 
++	C1478.327637,152.902786 1492.067505,148.753937 1506.930054,147.603149 
++	C1515.845825,146.912811 1524.022827,148.211517 1531.991577,151.673035 
++	C1538.304321,154.415237 1544.055542,165.187210 1540.986206,170.759277 
++	C1539.951782,170.833572 1538.804932,171.003326 1537.661377,170.984970 
++	C1519.930298,170.700409 1502.609497,173.262299 1485.874023,179.083664 
++	C1474.812256,182.931488 1464.836548,188.734436 1456.763062,197.477341 
++	C1445.818237,209.329559 1442.033569,223.505630 1443.006348,239.248978 
++	C1444.238037,259.183441 1453.650391,274.363831 1471.686279,282.516815 
++	C1492.626709,291.982605 1513.754395,290.163391 1533.691895,278.551422 
++	C1538.321899,275.854736 1542.313599,272.062012 1546.911743,268.533600 
++	C1547.629395,272.169983 1548.657471,275.539490 1548.876831,278.960815 
++	C1549.147461,283.181000 1551.204956,284.109100 1555.032349,284.066254 
++	C1569.686646,283.902252 1584.343872,283.999969 1599.000000,284.000000 
++M923.020386,256.505402 
++	C935.163269,239.513321 939.023621,219.964233 939.882202,199.709503 
++	C940.432007,186.738739 938.414612,173.916458 934.239868,161.567978 
++	C928.382568,144.242508 918.670105,129.760544 902.691284,120.091164 
++	C890.582397,112.763634 877.657349,109.848267 863.370117,110.828865 
++	C843.819397,112.170731 827.408386,118.970642 814.968445,134.444565 
++	C814.352600,135.210632 813.335876,135.654373 812.308411,136.389389 
++	C811.399658,128.707642 810.552185,121.544197 809.708496,114.412422 
++	C793.900085,114.412422 778.678772,114.412422 763.256592,114.412422 
++	C763.172424,116.120453 763.005249,117.434570 763.058960,118.739586 
++	C763.686768,133.986893 764.856445,149.231003 764.910583,164.479416 
++	C765.127258,225.442108 765.037781,286.406097 764.917358,347.369354 
++	C764.909058,351.555176 765.723938,353.214264 770.358215,353.112579 
++	C784.509583,352.802063 798.674805,352.844299 812.828613,353.094208 
++	C817.090576,353.169464 818.111084,351.736298 818.083130,347.682709 
++	C817.915283,323.365112 817.999939,299.045746 818.000000,274.726990 
++	C818.000000,273.169861 818.000000,271.612762 818.000000,269.367065 
++	C843.792236,299.265747 899.482300,292.116577 923.020386,256.505402 
++M1012.979492,40.811863 
++	C1012.981567,37.299137 1010.338196,38.029099 1008.321838,38.023224 
++	C993.824890,37.980995 979.324951,38.158707 964.832458,37.901974 
++	C960.609741,37.827168 959.936096,39.486748 959.939819,43.159225 
++	C960.019470,121.643295 960.040588,200.127548 959.896667,278.611450 
++	C959.888245,283.188019 961.357361,284.165497 965.602905,284.091675 
++	C979.595886,283.848236 993.599792,283.807739 1007.590454,284.109772 
++	C1012.152527,284.208221 1013.114563,282.686035 1013.090576,278.416992 
++	C1012.920288,248.090744 1012.961121,217.762985 1013.047302,187.436020 
++	C1013.058533,183.481750 1013.418091,179.475708 1014.125244,175.586182 
++	C1016.114380,164.644836 1026.755981,154.961792 1037.479126,154.020554 
++	C1049.958496,152.925140 1060.314209,158.377930 1064.011597,169.658554 
++	C1066.444702,177.081970 1067.708374,185.189880 1067.827393,193.016663 
++	C1068.263306,221.670914 1068.069336,250.336166 1067.919678,278.996246 
++	C1067.899048,282.926849 1069.022095,284.145752 1072.987793,284.084778 
++	C1087.148193,283.867065 1101.317261,283.832184 1115.476074,284.099731 
++	C1119.850098,284.182434 1121.130005,282.992310 1121.102173,278.533142 
++	C1120.908691,247.540604 1121.346191,216.540359 1120.814331,185.555740 
++	C1120.625488,174.555832 1119.217163,163.379730 1116.726929,152.664932 
++	C1113.391113,138.312347 1105.275757,126.626793 1092.437622,118.706261 
++	C1081.643188,112.046555 1069.967773,109.967979 1057.328613,110.843468 
++	C1044.400879,111.738953 1033.055786,115.915787 1023.211182,124.192757 
++	C1019.870667,127.001328 1016.847473,130.187363 1012.996216,133.850693 
++	C1012.996216,102.600243 1012.996216,72.177498 1012.979492,40.811863 
++M1200.209595,114.719040 
++	C1176.941162,121.614815 1159.671875,135.793427 1149.705078,157.950424 
++	C1139.857300,179.842667 1138.237671,202.783417 1144.070190,226.035019 
++	C1150.546631,251.852676 1166.111572,270.353149 1190.655396,280.782806 
++	C1212.048096,289.873444 1234.238403,290.446106 1256.484375,284.594513 
++	C1276.605591,279.301819 1292.958252,268.215393 1304.559082,250.617203 
++	C1314.670288,235.278488 1318.138428,217.998566 1318.920166,200.078918 
++	C1319.519409,186.344223 1317.061523,172.944550 1311.858643,160.218872 
++	C1304.191406,141.465790 1291.246460,127.486015 1272.791748,118.857239 
++	C1249.447388,107.942154 1225.413208,107.657532 1200.209595,114.719040 
++M565.000061,267.497864 
++	C565.000061,239.834229 565.148743,212.169281 564.907532,184.507751 
++	C564.837036,176.423920 564.303711,168.231064 562.848572,160.296158 
++	C559.915527,144.302948 553.023376,130.344879 539.184509,120.753067 
++	C527.263611,112.490509 514.042725,109.946838 499.637939,110.848755 
++	C480.532288,112.045013 465.227875,119.767159 453.580536,134.893570 
++	C452.981262,135.671860 452.147125,136.269287 451.329041,137.038635 
++	C450.438812,129.267166 449.596039,121.910034 448.729279,114.343277 
++	C433.077759,114.343277 417.850769,114.343277 402.366821,114.343277 
++	C402.240906,115.947495 402.002991,117.245674 402.058990,118.531059 
++	C402.679749,132.787323 403.814514,147.038467 403.910034,161.297043 
++	C404.171295,200.291031 404.078613,239.288284 403.896149,278.283173 
++	C403.874390,282.929779 405.221466,284.192627 409.776215,284.101685 
++	C423.769104,283.822357 437.773651,283.850769 451.768005,284.090851 
++	C455.950165,284.162537 457.110016,282.874298 457.086334,278.739319 
++	C456.922241,250.076721 456.957520,221.412613 457.042938,192.749329 
++	C457.056732,188.125488 457.425201,183.476562 457.999451,178.885468 
++	C459.645172,165.728058 471.078125,154.564270 483.245972,154.005508 
++	C497.668304,153.343185 506.956543,160.307831 509.908051,175.838303 
++	C511.687073,185.199295 511.814850,194.953430 511.913940,204.538864 
++	C512.170593,229.366852 511.999023,254.199219 512.002380,279.029846 
++	C512.002686,281.505768 511.467682,284.080078 515.521179,284.045135 
++	C530.851624,283.912811 546.184143,283.957001 561.515442,284.025360 
++	C564.100220,284.036865 565.099304,283.059662 565.023987,280.493805 
++	C564.906677,276.497803 564.997437,272.495636 565.000061,267.497864 
++M688.311218,112.007530 
++	C676.812561,110.189522 665.303894,109.974373 653.811462,111.981590 
++	C635.205505,115.231224 619.389832,123.452522 607.221497,138.198212 
++	C586.538635,163.262009 581.437012,192.077271 587.100037,223.272125 
++	C590.682373,243.004974 600.449097,259.214874 616.729431,271.225647 
++	C632.564331,282.907837 650.951660,287.049530 670.033325,287.790405 
++	C681.566345,288.238159 693.291077,287.413544 704.723145,285.745239 
++	C715.752502,284.135681 726.516602,280.708344 737.807312,277.980499 
++	C735.274841,264.906219 732.969849,253.006332 730.587158,240.705292 
++	C727.878784,241.398560 725.983093,241.879257 724.089722,242.369171 
++	C702.840942,247.867157 681.590149,250.685730 659.940735,244.084885 
++	C647.555847,240.308746 637.344788,229.096878 636.737061,216.997498 
++	C638.724487,216.997498 640.699402,216.997513 642.674316,216.997513 
++	C674.987549,216.997482 707.301453,216.903366 739.613403,217.102570 
++	C744.262573,217.131226 745.544006,215.286652 746.062317,211.146378 
++	C747.599792,198.864288 747.111877,186.706467 745.050354,174.525543 
++	C742.180847,157.570343 735.656555,142.415359 723.490173,130.046494 
++	C714.011719,120.410248 702.202515,115.014297 688.311218,112.007530 
++M1438.879639,110.182983 
++	C1412.804932,108.379524 1396.077271,121.326019 1385.483643,145.385468 
++	C1384.593994,134.090607 1383.812012,124.162720 1383.012695,114.014687 
++	C1368.008301,114.014687 1354.025757,113.944908 1340.047729,114.161545 
++	C1339.046753,114.177048 1337.193237,116.317192 1337.229492,117.420372 
++	C1337.654053,130.348282 1338.836914,143.264023 1338.912476,156.188293 
++	C1339.150024,196.845093 1339.062134,237.504364 1338.911133,278.161987 
++	C1338.894653,282.588104 1339.876221,284.228516 1344.653931,284.115631 
++	C1358.476685,283.789001 1372.318115,283.767975 1386.139404,284.122223 
++	C1391.180176,284.251373 1392.137573,282.502930 1392.101685,277.867706 
++	C1391.893433,251.041580 1391.924561,224.212677 1392.048584,197.385513 
++	C1392.083374,189.847397 1393.668091,182.549408 1397.612549,175.970490 
++	C1405.616943,162.619751 1421.969360,158.983734 1434.542603,160.314285 
++	C1437.435425,160.620422 1440.317139,161.030838 1443.132080,161.384247 
++	C1443.509766,160.361893 1443.823120,159.907593 1443.824707,159.452194 
++	C1443.876221,144.623093 1444.020264,129.791565 1443.738647,114.968246 
++	C1443.709595,113.441063 1441.114380,111.962654 1438.879639,110.182983 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M298.531342,0.999997 
++	C299.739227,1.675913 300.367096,2.700337 301.233765,2.977173 
++	C328.405396,11.656334 346.364319,29.370138 354.019501,57.017204 
++	C355.240601,61.427299 355.911072,66.139534 355.918610,70.713593 
++	C356.035156,141.470108 355.898865,212.227142 356.074982,282.983429 
++	C356.116211,299.543854 350.290466,313.810150 340.667938,326.714294 
++	C330.385132,340.503967 316.516998,349.169250 299.920319,353.556702 
++	C298.563660,353.915314 297.311310,354.668640 296.005249,355.619263 
++	C294.285645,356.000000 292.571289,356.000000 290.337463,355.852509 
++	C289.545319,355.803345 289.272675,355.901672 289.000000,356.000000 
++	C213.645767,356.000000 138.291550,356.000000 62.453484,355.620911 
++	C60.823570,354.738312 59.719296,354.083679 58.525307,353.753387 
++	C29.754541,345.794220 11.300371,327.531952 3.314334,298.709564 
++	C2.941150,297.362671 1.789238,296.231598 0.999999,295.000000 
++	C1.000000,219.645767 1.000000,144.291550 1.135566,68.356552 
++	C1.323496,67.672150 1.447137,67.524391 1.415265,67.472923 
++	C1.306334,67.297020 1.142742,67.154968 1.000000,67.000000 
++	C1.000000,65.285645 1.000000,63.571285 1.378801,61.412857 
++	C2.140856,60.473026 2.738333,60.030502 2.876665,59.473869 
++	C10.153230,30.193644 28.381062,11.474855 57.223553,2.903302 
++	C57.940891,2.690119 58.413338,1.652897 59.000000,1.000000 
++	C138.687561,1.000000 218.375122,1.000000 298.531342,0.999997 
++M68.417099,169.056625 
++	C62.556953,176.599304 60.725571,185.147095 60.876999,194.634064 
++	C61.113476,209.449265 71.419930,225.295792 86.318138,228.953186 
++	C92.736954,230.528946 99.396698,231.556259 105.993195,231.874268 
++	C115.982330,232.355804 115.999496,232.000031 115.999954,241.688400 
++	C116.000053,243.665802 115.999977,245.643188 115.999977,247.629761 
++	C120.549812,248.633331 124.797997,249.533066 129.028336,250.510056 
++	C145.541107,254.323715 162.007187,258.356750 178.587677,261.847290 
++	C182.502106,262.671356 187.007675,262.476471 190.873978,261.413849 
++	C203.905273,257.832336 216.791183,253.712692 229.689774,249.662201 
++	C234.438217,248.171097 239.908997,247.268814 243.419083,244.219955 
++	C245.367615,242.527481 243.942917,236.961349 244.070358,233.142197 
++	C244.079712,232.862167 244.347321,232.590759 244.663818,232.000015 
++	C246.806061,232.000015 249.116318,232.137115 251.405014,231.973236 
++	C257.283936,231.552307 263.479553,232.030380 268.963531,230.297531 
++	C283.723267,225.633713 292.882202,215.800171 296.223877,200.006882 
++	C300.378479,180.371628 288.372986,161.577484 271.428101,156.187851 
++	C264.511993,153.988068 261.332306,150.126633 259.932892,143.400406 
++	C256.023804,124.611328 234.928009,114.138031 217.581772,119.046486 
++	C208.149200,121.715614 205.474335,120.984764 199.987503,112.991592 
++	C199.343033,112.052727 198.625305,111.139511 197.815475,110.342476 
++	C184.520081,97.257271 168.908386,91.929184 150.189209,94.891464 
++	C127.215401,98.527023 105.434715,119.747650 104.901901,142.743271 
++	C104.687210,152.009109 102.813889,153.356445 93.562759,154.009415 
++	C92.749191,154.066818 91.942955,154.240448 91.135864,154.375351 
++	C81.723106,155.948654 75.035355,161.782852 68.417099,169.056625 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M1599.000000,283.583344 
++	C1584.343872,283.999969 1569.686646,283.902252 1555.032349,284.066254 
++	C1551.204956,284.109100 1549.147461,283.181000 1548.876831,278.960815 
++	C1548.657471,275.539490 1547.629395,272.169983 1546.911743,268.533600 
++	C1542.313599,272.062012 1538.321899,275.854736 1533.691895,278.551422 
++	C1513.754395,290.163391 1492.626709,291.982605 1471.686279,282.516815 
++	C1453.650391,274.363831 1444.238037,259.183441 1443.006348,239.248978 
++	C1442.033569,223.505630 1445.818237,209.329559 1456.763062,197.477341 
++	C1464.836548,188.734436 1474.812256,182.931488 1485.874023,179.083664 
++	C1502.609497,173.262299 1519.930298,170.700409 1537.661377,170.984970 
++	C1538.804932,171.003326 1539.951782,170.833572 1540.986206,170.759277 
++	C1544.055542,165.187210 1538.304321,154.415237 1531.991577,151.673035 
++	C1524.022827,148.211517 1515.845825,146.912811 1506.930054,147.603149 
++	C1492.067505,148.753937 1478.327637,152.902786 1464.638672,160.164948 
++	C1462.724121,153.775024 1460.873291,147.705460 1459.092896,141.615234 
++	C1457.978638,137.802948 1457.273193,133.840942 1455.829834,130.163712 
++	C1454.420410,126.572838 1455.188232,124.263710 1458.738525,123.158630 
++	C1470.887207,119.377197 1482.892822,114.810371 1495.309082,112.315079 
++	C1505.604004,110.246124 1516.414307,109.979584 1526.973267,110.172455 
++	C1541.375244,110.435516 1555.473755,113.501198 1567.668701,121.530144 
++	C1583.104492,131.692734 1591.501221,146.747604 1593.925293,164.872025 
++	C1597.709595,193.168152 1595.406250,221.659042 1596.018433,250.059708 
++	C1596.207886,258.848602 1596.648438,267.632812 1597.066650,276.414795 
++	C1597.107544,277.273224 1597.802368,278.100494 1598.596924,278.971100 
++	C1599.000000,280.388885 1599.000000,281.777802 1599.000000,283.583344 
++M1496.045654,235.274460 
++	C1497.394531,238.063843 1498.244263,241.276291 1500.184082,243.564804 
++	C1506.463867,250.973557 1514.846558,251.347168 1523.389160,248.942047 
++	C1533.714844,246.034882 1540.955322,239.451279 1542.846313,228.599747 
++	C1543.946533,222.286118 1543.591187,215.726257 1544.028076,209.286499 
++	C1544.242310,206.129257 1543.229248,204.604996 1539.839844,204.972702 
++	C1532.621704,205.755753 1525.134644,205.464401 1518.217163,207.323044 
++	C1503.897705,211.170563 1493.824219,218.333908 1496.045654,235.274460 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M0.999999,295.468658 
++	C1.789238,296.231598 2.941150,297.362671 3.314334,298.709564 
++	C11.300371,327.531952 29.754541,345.794220 58.525307,353.753387 
++	C59.719296,354.083679 60.823570,354.738312 61.984825,355.620911 
++	C41.739849,356.000000 21.479700,356.000000 1.000000,356.000000 
++	C1.000000,335.979645 1.000000,315.958466 0.999999,295.468658 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M58.531342,1.000000 
++	C58.413338,1.652897 57.940891,2.690119 57.223553,2.903302 
++	C28.381062,11.474855 10.153230,30.193644 2.876665,59.473869 
++	C2.738333,60.030502 2.140856,60.473026 1.378801,60.984398 
++	C1.000000,41.074436 1.000000,21.148872 1.000000,1.000000 
++	C20.020311,1.000000 39.041496,1.000000 58.531342,1.000000 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M1.000000,67.250000 
++	C1.142742,67.154968 1.306334,67.297020 1.415265,67.472923 
++	C1.447137,67.524391 1.323496,67.672150 1.135566,67.887894 
++	C1.000000,68.000000 1.000000,67.500000 1.000000,67.250000 
++z"/>
++<path fill="#001555" opacity="1.000000" stroke="none" 
++	d="
++M289.250000,356.000000 
++	C289.272675,355.901672 289.545319,355.803345 289.908997,355.852509 
++	C290.000000,356.000000 289.500000,356.000000 289.250000,356.000000 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M922.786377,256.778931 
++	C899.482300,292.116577 843.792236,299.265747 818.000000,269.367065 
++	C818.000000,271.612762 818.000000,273.169861 818.000000,274.726990 
++	C817.999939,299.045746 817.915283,323.365112 818.083130,347.682709 
++	C818.111084,351.736298 817.090576,353.169464 812.828613,353.094208 
++	C798.674805,352.844299 784.509583,352.802063 770.358215,353.112579 
++	C765.723938,353.214264 764.909058,351.555176 764.917358,347.369354 
++	C765.037781,286.406097 765.127258,225.442108 764.910583,164.479416 
++	C764.856445,149.231003 763.686768,133.986893 763.058960,118.739586 
++	C763.005249,117.434570 763.172424,116.120453 763.256592,114.412422 
++	C778.678772,114.412422 793.900085,114.412422 809.708496,114.412422 
++	C810.552185,121.544197 811.399658,128.707642 812.308411,136.389389 
++	C813.335876,135.654373 814.352600,135.210632 814.968445,134.444565 
++	C827.408386,118.970642 843.819397,112.170731 863.370117,110.828865 
++	C877.657349,109.848267 890.582397,112.763634 902.691284,120.091164 
++	C918.670105,129.760544 928.382568,144.242508 934.239868,161.567978 
++	C938.414612,173.916458 940.432007,186.738739 939.882202,199.709503 
++	C939.023621,219.964233 935.163269,239.513321 922.786377,256.778931 
++M844.489624,246.074982 
++	C846.776672,246.378860 849.105652,247.126205 851.343933,246.914581 
++	C865.781250,245.549515 875.581360,237.703110 880.945496,224.481979 
++	C886.361023,211.134216 886.117981,197.157349 883.761719,183.292297 
++	C882.266479,174.494461 878.233643,166.364075 871.515137,160.425446 
++	C854.634644,145.504440 827.862305,152.962051 820.827026,174.474731 
++	C816.021057,189.170837 817.500427,204.335724 819.036865,219.351761 
++	C820.380066,232.479538 830.605835,243.255524 844.489624,246.074982 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M1012.987854,41.283310 
++	C1012.996216,72.177498 1012.996216,102.600243 1012.996216,133.850693 
++	C1016.847473,130.187363 1019.870667,127.001328 1023.211182,124.192757 
++	C1033.055786,115.915787 1044.400879,111.738953 1057.328613,110.843468 
++	C1069.967773,109.967979 1081.643188,112.046555 1092.437622,118.706261 
++	C1105.275757,126.626793 1113.391113,138.312347 1116.726929,152.664932 
++	C1119.217163,163.379730 1120.625488,174.555832 1120.814331,185.555740 
++	C1121.346191,216.540359 1120.908691,247.540604 1121.102173,278.533142 
++	C1121.130005,282.992310 1119.850098,284.182434 1115.476074,284.099731 
++	C1101.317261,283.832184 1087.148193,283.867065 1072.987793,284.084778 
++	C1069.022095,284.145752 1067.899048,282.926849 1067.919678,278.996246 
++	C1068.069336,250.336166 1068.263306,221.670914 1067.827393,193.016663 
++	C1067.708374,185.189880 1066.444702,177.081970 1064.011597,169.658554 
++	C1060.314209,158.377930 1049.958496,152.925140 1037.479126,154.020554 
++	C1026.755981,154.961792 1016.114380,164.644836 1014.125244,175.586182 
++	C1013.418091,179.475708 1013.058533,183.481750 1013.047302,187.436020 
++	C1012.961121,217.762985 1012.920288,248.090744 1013.090576,278.416992 
++	C1013.114563,282.686035 1012.152527,284.208221 1007.590454,284.109772 
++	C993.599792,283.807739 979.595886,283.848236 965.602905,284.091675 
++	C961.357361,284.165497 959.888245,283.188019 959.896667,278.611450 
++	C960.040588,200.127548 960.019470,121.643295 959.939819,43.159225 
++	C959.936096,39.486748 960.609741,37.827168 964.832458,37.901974 
++	C979.324951,38.158707 993.824890,37.980995 1008.321838,38.023224 
++	C1010.338196,38.029099 1012.981567,37.299137 1012.987854,41.283310 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M1200.584351,114.565338 
++	C1225.413208,107.657532 1249.447388,107.942154 1272.791748,118.857239 
++	C1291.246460,127.486015 1304.191406,141.465790 1311.858643,160.218872 
++	C1317.061523,172.944550 1319.519409,186.344223 1318.920166,200.078918 
++	C1318.138428,217.998566 1314.670288,235.278488 1304.559082,250.617203 
++	C1292.958252,268.215393 1276.605591,279.301819 1256.484375,284.594513 
++	C1234.238403,290.446106 1212.048096,289.873444 1190.655396,280.782806 
++	C1166.111572,270.353149 1150.546631,251.852676 1144.070190,226.035019 
++	C1138.237671,202.783417 1139.857300,179.842667 1149.705078,157.950424 
++	C1159.671875,135.793427 1176.941162,121.614815 1200.584351,114.565338 
++M1197.780151,213.713516 
++	C1198.906250,224.267990 1202.831055,233.784958 1210.135742,241.357178 
++	C1215.950073,247.384369 1223.708252,250.022507 1232.239990,249.379593 
++	C1246.870850,248.277130 1254.378540,238.711136 1259.036499,226.163559 
++	C1264.490723,211.470596 1264.378174,196.230820 1261.691162,181.136902 
++	C1260.006958,171.675507 1256.481567,162.495834 1248.824707,155.930817 
++	C1233.160889,142.500549 1210.932373,148.272263 1202.104614,169.089935 
++	C1196.124634,183.192062 1195.233643,197.890594 1197.780151,213.713516 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M565.000061,267.996979 
++	C564.997437,272.495636 564.906677,276.497803 565.023987,280.493805 
++	C565.099304,283.059662 564.100220,284.036865 561.515442,284.025360 
++	C546.184143,283.957001 530.851624,283.912811 515.521179,284.045135 
++	C511.467682,284.080078 512.002686,281.505768 512.002380,279.029846 
++	C511.999023,254.199219 512.170593,229.366852 511.913940,204.538864 
++	C511.814850,194.953430 511.687073,185.199295 509.908051,175.838303 
++	C506.956543,160.307831 497.668304,153.343185 483.245972,154.005508 
++	C471.078125,154.564270 459.645172,165.728058 457.999451,178.885468 
++	C457.425201,183.476562 457.056732,188.125488 457.042938,192.749329 
++	C456.957520,221.412613 456.922241,250.076721 457.086334,278.739319 
++	C457.110016,282.874298 455.950165,284.162537 451.768005,284.090851 
++	C437.773651,283.850769 423.769104,283.822357 409.776215,284.101685 
++	C405.221466,284.192627 403.874390,282.929779 403.896149,278.283173 
++	C404.078613,239.288284 404.171295,200.291031 403.910034,161.297043 
++	C403.814514,147.038467 402.679749,132.787323 402.058990,118.531059 
++	C402.002991,117.245674 402.240906,115.947495 402.366821,114.343277 
++	C417.850769,114.343277 433.077759,114.343277 448.729279,114.343277 
++	C449.596039,121.910034 450.438812,129.267166 451.329041,137.038635 
++	C452.147125,136.269287 452.981262,135.671860 453.580536,134.893570 
++	C465.227875,119.767159 480.532288,112.045013 499.637939,110.848755 
++	C514.042725,109.946838 527.263611,112.490509 539.184509,120.753067 
++	C553.023376,130.344879 559.915527,144.302948 562.848572,160.296158 
++	C564.303711,168.231064 564.837036,176.423920 564.907532,184.507751 
++	C565.148743,212.169281 565.000061,239.834229 565.000061,267.996979 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M688.741089,112.028442 
++	C702.202515,115.014297 714.011719,120.410248 723.490173,130.046494 
++	C735.656555,142.415359 742.180847,157.570343 745.050354,174.525543 
++	C747.111877,186.706467 747.599792,198.864288 746.062317,211.146378 
++	C745.544006,215.286652 744.262573,217.131226 739.613403,217.102570 
++	C707.301453,216.903366 674.987549,216.997482 642.674316,216.997513 
++	C640.699402,216.997513 638.724487,216.997498 636.737061,216.997498 
++	C637.344788,229.096878 647.555847,240.308746 659.940735,244.084885 
++	C681.590149,250.685730 702.840942,247.867157 724.089722,242.369171 
++	C725.983093,241.879257 727.878784,241.398560 730.587158,240.705292 
++	C732.969849,253.006332 735.274841,264.906219 737.807312,277.980499 
++	C726.516602,280.708344 715.752502,284.135681 704.723145,285.745239 
++	C693.291077,287.413544 681.566345,288.238159 670.033325,287.790405 
++	C650.951660,287.049530 632.564331,282.907837 616.729431,271.225647 
++	C600.449097,259.214874 590.682373,243.004974 587.100037,223.272125 
++	C581.437012,192.077271 586.538635,163.262009 607.221497,138.198212 
++	C619.389832,123.452522 635.205505,115.231224 653.811462,111.981590 
++	C665.303894,109.974373 676.812561,110.189522 688.741089,112.028442 
++M668.444702,146.017609 
++	C646.765564,146.936996 636.584167,166.085541 636.686523,179.661926 
++	C656.585266,179.661926 676.484558,179.661926 696.817383,179.661926 
++	C697.154480,170.353821 694.455994,162.445190 688.935913,155.459335 
++	C683.946716,149.145309 676.904114,146.994080 668.444702,146.017609 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M1439.294800,110.322296 
++	C1441.114380,111.962654 1443.709595,113.441063 1443.738647,114.968246 
++	C1444.020264,129.791565 1443.876221,144.623093 1443.824707,159.452194 
++	C1443.823120,159.907593 1443.509766,160.361893 1443.132080,161.384247 
++	C1440.317139,161.030838 1437.435425,160.620422 1434.542603,160.314285 
++	C1421.969360,158.983734 1405.616943,162.619751 1397.612549,175.970490 
++	C1393.668091,182.549408 1392.083374,189.847397 1392.048584,197.385513 
++	C1391.924561,224.212677 1391.893433,251.041580 1392.101685,277.867706 
++	C1392.137573,282.502930 1391.180176,284.251373 1386.139404,284.122223 
++	C1372.318115,283.767975 1358.476685,283.789001 1344.653931,284.115631 
++	C1339.876221,284.228516 1338.894653,282.588104 1338.911133,278.161987 
++	C1339.062134,237.504364 1339.150024,196.845093 1338.912476,156.188293 
++	C1338.836914,143.264023 1337.654053,130.348282 1337.229492,117.420372 
++	C1337.193237,116.317192 1339.046753,114.177048 1340.047729,114.161545 
++	C1354.025757,113.944908 1368.008301,114.014687 1383.012695,114.014687 
++	C1383.812012,124.162720 1384.593994,134.090607 1385.483643,145.385468 
++	C1396.077271,121.326019 1412.804932,108.379524 1439.294800,110.322296 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M68.686264,168.811493 
++	C75.035355,161.782852 81.723106,155.948654 91.135864,154.375351 
++	C91.942955,154.240448 92.749191,154.066818 93.562759,154.009415 
++	C102.813889,153.356445 104.687210,152.009109 104.901901,142.743271 
++	C105.434715,119.747650 127.215401,98.527023 150.189209,94.891464 
++	C168.908386,91.929184 184.520081,97.257271 197.815475,110.342476 
++	C198.625305,111.139511 199.343033,112.052727 199.987503,112.991592 
++	C205.474335,120.984764 208.149200,121.715614 217.581772,119.046486 
++	C234.928009,114.138031 256.023804,124.611328 259.932892,143.400406 
++	C261.332306,150.126633 264.511993,153.988068 271.428101,156.187851 
++	C288.372986,161.577484 300.378479,180.371628 296.223877,200.006882 
++	C292.882202,215.800171 283.723267,225.633713 268.963531,230.297531 
++	C263.479553,232.030380 257.283936,231.552307 251.405014,231.973236 
++	C249.116318,232.137115 246.806061,232.000015 244.663818,232.000015 
++	C244.347321,232.590759 244.079712,232.862167 244.070358,233.142197 
++	C243.942917,236.961349 245.367615,242.527481 243.419083,244.219955 
++	C239.908997,247.268814 234.438217,248.171097 229.689774,249.662201 
++	C216.791183,253.712692 203.905273,257.832336 190.873978,261.413849 
++	C187.007675,262.476471 182.502106,262.671356 178.587677,261.847290 
++	C162.007187,258.356750 145.541107,254.323715 129.028336,250.510056 
++	C124.797997,249.533066 120.549812,248.633331 115.999977,247.629761 
++	C115.999977,245.643188 116.000053,243.665802 115.999954,241.688400 
++	C115.999496,232.000031 115.982330,232.355804 105.993195,231.874268 
++	C99.396698,231.556259 92.736954,230.528946 86.318138,228.953186 
++	C71.419930,225.295792 61.113476,209.449265 60.876999,194.634064 
++	C60.725571,185.147095 62.556953,176.599304 68.686264,168.811493 
++M224.035263,202.455643 
++	C226.360474,201.804016 228.721191,201.257111 231.004883,200.483002 
++	C242.129578,196.712067 241.998871,196.689743 242.078568,185.029037 
++	C242.100922,181.755264 241.047852,180.615158 237.860840,179.908249 
++	C220.711945,176.104370 203.649185,171.913223 186.508301,168.071671 
++	C181.772217,167.010239 176.414352,165.085892 172.124649,166.307220 
++	C154.680405,171.273773 137.521866,177.254044 120.323639,183.055145 
++	C118.959206,183.515381 117.281586,185.385971 117.152161,186.735641 
++	C116.743202,191.000259 117.001221,195.328873 117.001221,199.551315 
++	C134.926514,203.611145 152.518036,207.596619 170.110184,211.579254 
++	C178.980392,213.587341 187.480606,215.630829 196.719376,211.346649 
++	C205.098083,207.461288 214.444656,205.663101 224.035263,202.455643 
++M149.224365,253.045609 
++	C159.446609,255.364090 169.635162,257.851410 179.911072,259.900818 
++	C183.100037,260.536804 186.748474,260.743988 189.806000,259.848358 
++	C205.232208,255.329697 220.501587,250.278229 235.899353,245.658157 
++	C239.727890,244.509399 241.699051,242.907501 241.079361,238.600403 
++	C240.658539,235.675476 240.998978,232.641037 240.998978,228.520309 
++	C236.751785,228.345367 232.327484,227.150131 228.512054,228.189651 
++	C215.338211,231.778961 202.396545,236.213470 189.315491,240.156998 
++	C187.028198,240.846527 184.367325,241.338028 182.095093,240.870575 
++	C164.866196,237.326126 147.682236,233.560287 130.503281,229.777176 
++	C122.740677,228.067719 118.031807,231.633240 118.002449,239.459900 
++	C117.993759,241.775681 118.001106,244.091522 118.001106,246.692474 
++	C128.220993,248.816925 138.290924,250.910202 149.224365,253.045609 
++M188.465973,217.002197 
++	C187.224075,217.317780 185.878937,218.115463 184.756073,217.875076 
++	C172.139877,215.173981 159.599640,212.105347 146.952927,209.563797 
++	C137.487549,207.661606 128.032761,202.399948 118.118607,208.856766 
++	C118.118607,213.148941 118.118607,217.783340 118.118607,222.392319 
++	C136.092850,226.596786 153.922806,230.936920 171.844376,234.858322 
++	C177.349411,236.062851 183.545135,237.769104 188.665161,236.401840 
++	C205.262054,231.969757 221.519669,226.257980 237.860580,220.894745 
++	C239.096603,220.489075 240.764725,219.013992 240.854294,217.922913 
++	C241.203171,213.673508 240.996552,209.378479 240.996552,205.118515 
++	C237.038986,204.693985 233.320679,203.270462 230.255493,204.142532 
++	C216.499146,208.056381 202.928513,212.622971 188.465973,217.002197 
++M130.936630,127.595261 
++	C134.347214,124.514328 137.393661,120.816971 141.271133,118.526367 
++	C145.125076,116.249657 145.461227,113.693497 144.534485,109.651657 
++	C142.743347,110.078522 140.897186,110.027328 139.712265,110.887268 
++	C134.980911,114.320938 129.711502,117.412109 126.024132,121.793793 
++	C120.189583,128.727005 115.803978,136.691391 115.948280,146.352966 
++	C115.996979,149.613922 116.713524,152.691528 120.183952,152.660385 
++	C121.471725,152.648804 123.122345,149.198654 123.922966,147.060349 
++	C126.264252,140.807251 128.260773,134.425095 130.936630,127.595261 
++M262.000732,215.623993 
++	C262.417664,219.427658 265.033417,219.406860 267.715790,218.661819 
++	C280.244202,215.181961 286.941711,197.935196 285.797729,187.706696 
++	C285.269989,182.988220 282.263153,180.945129 277.000000,182.355347 
++	C277.000000,186.020676 276.905121,189.823624 277.021057,193.620148 
++	C277.222290,200.211090 274.642029,205.113113 268.975647,208.660080 
++	C266.383636,210.282608 264.310638,212.734314 262.000732,215.623993 
++M155.585480,111.072037 
++	C157.931412,113.687141 161.182999,113.903030 162.167099,111.318207 
++	C162.645004,110.062927 162.449478,108.223167 161.840469,107.008034 
++	C161.488144,106.305054 159.232422,105.695877 158.661896,106.130974 
++	C157.212601,107.236267 156.229950,108.953453 155.585480,111.072037 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M1496.027100,234.871643 
++	C1493.824219,218.333908 1503.897705,211.170563 1518.217163,207.323044 
++	C1525.134644,205.464401 1532.621704,205.755753 1539.839844,204.972702 
++	C1543.229248,204.604996 1544.242310,206.129257 1544.028076,209.286499 
++	C1543.591187,215.726257 1543.946533,222.286118 1542.846313,228.599747 
++	C1540.955322,239.451279 1533.714844,246.034882 1523.389160,248.942047 
++	C1514.846558,251.347168 1506.463867,250.973557 1500.184082,243.564804 
++	C1498.244263,241.276291 1497.394531,238.063843 1496.027100,234.871643 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M844.067871,246.043152 
++	C830.605835,243.255524 820.380066,232.479538 819.036865,219.351761 
++	C817.500427,204.335724 816.021057,189.170837 820.827026,174.474731 
++	C827.862305,152.962051 854.634644,145.504440 871.515137,160.425446 
++	C878.233643,166.364075 882.266479,174.494461 883.761719,183.292297 
++	C886.117981,197.157349 886.361023,211.134216 880.945496,224.481979 
++	C875.581360,237.703110 865.781250,245.549515 851.343933,246.914581 
++	C849.105652,247.126205 846.776672,246.378860 844.067871,246.043152 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M1197.615479,213.302734 
++	C1195.233643,197.890594 1196.124634,183.192062 1202.104614,169.089935 
++	C1210.932373,148.272263 1233.160889,142.500549 1248.824707,155.930817 
++	C1256.481567,162.495834 1260.006958,171.675507 1261.691162,181.136902 
++	C1264.378174,196.230820 1264.490723,211.470596 1259.036499,226.163559 
++	C1254.378540,238.711136 1246.870850,248.277130 1232.239990,249.379593 
++	C1223.708252,250.022507 1215.950073,247.384369 1210.135742,241.357178 
++	C1202.831055,233.784958 1198.906250,224.267990 1197.615479,213.302734 
++z"/>
++<path fill="none" opacity="1.000000" stroke="none" 
++	d="
++M668.876465,146.037643 
++	C676.904114,146.994080 683.946716,149.145309 688.935913,155.459335 
++	C694.455994,162.445190 697.154480,170.353821 696.817383,179.661926 
++	C676.484558,179.661926 656.585266,179.661926 636.686523,179.661926 
++	C636.584167,166.085541 646.765564,146.936996 668.876465,146.037643 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M223.699890,202.700180 
++	C214.444656,205.663101 205.098083,207.461288 196.719376,211.346649 
++	C187.480606,215.630829 178.980392,213.587341 170.110184,211.579254 
++	C152.518036,207.596619 134.926514,203.611145 117.001221,199.551315 
++	C117.001221,195.328873 116.743202,191.000259 117.152161,186.735641 
++	C117.281586,185.385971 118.959206,183.515381 120.323639,183.055145 
++	C137.521866,177.254044 154.680405,171.273773 172.124649,166.307220 
++	C176.414352,165.085892 181.772217,167.010239 186.508301,168.071671 
++	C203.649185,171.913223 220.711945,176.104370 237.860840,179.908249 
++	C241.047852,180.615158 242.100922,181.755264 242.078568,185.029037 
++	C241.998871,196.689743 242.129578,196.712067 231.004883,200.483002 
++	C228.721191,201.257111 226.360474,201.804016 223.699890,202.700180 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M148.792603,253.024536 
++	C138.290924,250.910202 128.220993,248.816925 118.001106,246.692474 
++	C118.001106,244.091522 117.993759,241.775681 118.002449,239.459900 
++	C118.031807,231.633240 122.740677,228.067719 130.503281,229.777176 
++	C147.682236,233.560287 164.866196,237.326126 182.095093,240.870575 
++	C184.367325,241.338028 187.028198,240.846527 189.315491,240.156998 
++	C202.396545,236.213470 215.338211,231.778961 228.512054,228.189651 
++	C232.327484,227.150131 236.751785,228.345367 240.998978,228.520309 
++	C240.998978,232.641037 240.658539,235.675476 241.079361,238.600403 
++	C241.699051,242.907501 239.727890,244.509399 235.899353,245.658157 
++	C220.501587,250.278229 205.232208,255.329697 189.806000,259.848358 
++	C186.748474,260.743988 183.100037,260.536804 179.911072,259.900818 
++	C169.635162,257.851410 159.446609,255.364090 148.792603,253.024536 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M188.878418,216.978134 
++	C202.928513,212.622971 216.499146,208.056381 230.255493,204.142532 
++	C233.320679,203.270462 237.038986,204.693985 240.996552,205.118515 
++	C240.996552,209.378479 241.203171,213.673508 240.854294,217.922913 
++	C240.764725,219.013992 239.096603,220.489075 237.860580,220.894745 
++	C221.519669,226.257980 205.262054,231.969757 188.665161,236.401840 
++	C183.545135,237.769104 177.349411,236.062851 171.844376,234.858322 
++	C153.922806,230.936920 136.092850,226.596786 118.118607,222.392319 
++	C118.118607,217.783340 118.118607,213.148941 118.118607,208.856766 
++	C128.032761,202.399948 137.487549,207.661606 146.952927,209.563797 
++	C159.599640,212.105347 172.139877,215.173981 184.756073,217.875076 
++	C185.878937,218.115463 187.224075,217.317780 188.878418,216.978134 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M130.664520,127.844383 
++	C128.260773,134.425095 126.264252,140.807251 123.922966,147.060349 
++	C123.122345,149.198654 121.471725,152.648804 120.183952,152.660385 
++	C116.713524,152.691528 115.996979,149.613922 115.948280,146.352966 
++	C115.803978,136.691391 120.189583,128.727005 126.024132,121.793793 
++	C129.711502,117.412109 134.980911,114.320938 139.712265,110.887268 
++	C140.897186,110.027328 142.743347,110.078522 144.534485,109.651657 
++	C145.461227,113.693497 145.125076,116.249657 141.271133,118.526367 
++	C137.393661,120.816971 134.347214,124.514328 130.664520,127.844383 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M262.001526,215.216980 
++	C264.310638,212.734314 266.383636,210.282608 268.975647,208.660080 
++	C274.642029,205.113113 277.222290,200.211090 277.021057,193.620148 
++	C276.905121,189.823624 277.000000,186.020676 277.000000,182.355347 
++	C282.263153,180.945129 285.269989,182.988220 285.797729,187.706696 
++	C286.941711,197.935196 280.244202,215.181961 267.715790,218.661819 
++	C265.033417,219.406860 262.417664,219.427658 262.001526,215.216980 
++z"/>
++<path fill="#FFFFFF" opacity="1.000000" stroke="none" 
++	d="
++M155.322983,110.748856 
++	C156.229950,108.953453 157.212601,107.236267 158.661896,106.130974 
++	C159.232422,105.695877 161.488144,106.305054 161.840469,107.008034 
++	C162.449478,108.223167 162.645004,110.062927 162.167099,111.318207 
++	C161.182999,113.903030 157.931412,113.687141 155.322983,110.748856 
++z"/>
++</svg>
+\ No newline at end of file
+diff --git a/src/xenserver/opt/xensource/www/asset/style.css b/src/xenserver/opt/xensource/www/asset/style.css
+index b1ffcc4..15dae5e 100644
+--- a/src/xenserver/opt/xensource/www/asset/style.css
++++ b/src/xenserver/opt/xensource/www/asset/style.css
+@@ -4,8 +4,8 @@
+ 
+ html {
+   font: normal 16px sans-serif;
+-  color: #555;
+-  background-color: #f7f7f7;
++  color: #ffffff;
++  background-color: #002263;
+ }
+ 
+ .wrap {
+@@ -22,7 +22,7 @@ html {
+ }
+ 
+ .danger {
+-  color: #d9534f;
++  color: #7f0702;
+ }
+ 
+ p {
+@@ -46,7 +46,7 @@ a.btn {
+   color: #fff;
+   border-radius: 4px;
+   text-transform: uppercase;
+-  background-color: #cc584c;
++  background-color: #1269a7;
+   font-weight: 800;
+   text-align: center;
+   padding: 15px 32px;
+@@ -59,7 +59,7 @@ button {
+   color: #fff;
+   border-radius: 4px;
+   text-transform: uppercase;
+-  background-color: #cc584c;
++  background-color: #1269a7;
+   font-weight: 800;
+   text-align: center;
+   padding: 15px 32px;
+@@ -84,7 +84,7 @@ select {
+ 
+ input {
+   padding: 0 0.5em;
+-  color: #cc584c;
++  color: #000000;
+   position: relative;
+   width: 15em;
+   height: 2em;
+@@ -118,8 +118,7 @@ hr {
+ }
+ 
+ h2.title {
+-  color: #414a4f;
+-  text-transform: capitalize;
++  color: #c6c8c9;
+   font: bold 32px "Open Sans", sans-serif;
+   text-align: center;
+   margin-top: 0.5em;
+@@ -127,8 +126,7 @@ h2.title {
+ }
+ 
+ h3.subtitle {
+-  color: #414a4f;
+-  text-transform: capitalize;
++  color: #c6c8c9;
+   font: bold 24px "Open Sans", sans-serif;
+   margin-top: 1em;
+   margin-bottom: 0.2em;
+@@ -136,6 +134,7 @@ h3.subtitle {
+ }
+ 
+ h4 {
++  color: #c6c8c9;
+   font-size: 1.2em;
+   margin-bottom: 0.4em;
+ }
+@@ -171,7 +170,7 @@ h4 {
+     ----------------------*/
+ 
+ .section {
+-  margin-top: 2em;
++  margin-top: 10%;
+ }
+ 
+ /*----------------------
+@@ -203,6 +202,12 @@ p.description {
+   border: 1px solid #a1a1a1;
+   border-radius: 4px;
+   margin-bottom: 10px;
++  height: 180px;
++}
++
++.logo {
++  display: block;
++  margin: 100px auto;
+ }
+ 
+ /*----------------------
+@@ -221,3 +226,85 @@ p.description {
+ .support p {
+   font-weight: 600;
+ }
++
++/** spinner **/
++
++.spinner {
++  --color: 255 255 255;
++  font-size: 0.4em;
++  width: 0.88em;
++  height: 0.88em;
++  border-radius: 0.88em;
++  box-shadow: 2.2em 0px 0 0 rgb(var(--color) / 20%), 1.78em 1.3em 0 0 rgb(var(--color) / 40%), 0.682em 2.09em 0 0 rgb(var(--color) / 60%),
++    -0.682em 2.09em 0 0 rgb(var(--color) / 80%), -1.78em 1.3em 0 0 rgb(var(--color) / 100%);
++  animation: spinner-b87k6z 1s infinite linear;
++  margin: 0 2.4em 0 0.9em;
++  position: relative;
++  top: -0.5em;
++}
++
++@keyframes spinner-b87k6z {
++  to {
++    transform: rotate(360deg);
++  }
++}
++
++.blocker {
++  position: fixed;
++  top: 0;
++  right: 0;
++  bottom: 0;
++  left: 0;
++  overflow: auto;
++  z-index: 1;
++  padding: 20px;
++  display: flex;
++  flex-direction: row;
++  align-items: center;
++  justify-content: center;
++  background-color: rgba(0, 0, 0, 0.75);
++  text-align: center;
++  padding: 1em;
++}
++
++.blocker.behind {
++  background-color: transparent;
++}
++
++.modal {
++  display: none;
++  vertical-align: middle;
++  position: relative;
++  z-index: 2;
++  max-width: 500px;
++  box-sizing: border-box;
++  width: 90%;
++  background: #044b7f;
++  padding: 15px 30px;
++  margin-top: auto;
++  margin-bottom: auto;
++  border-radius: 8px;
++  box-shadow: 0 0 10px #000;
++  text-align: left;
++}
++
++.modal a.close-modal:before {
++  content: "\00D7";
++}
++
++.modal a.close-modal {
++  font-size: 1.1em;
++  position: absolute;
++  text-decoration: none;
++  top: -12.5px;
++  right: -12.5px;
++  display: block;
++  text-align: center;
++  width: 1.5em;
++  line-height: 1.5em;
++  height: 1.5em;
++  /* text-indent: -9999px; */
++  background: rgba(142, 139, 139, 0.85);
++  color: #fff;
++  border-radius: 2em;
++}
+diff --git a/src/xenserver/opt/xensource/www/asset/xoa.jpg b/src/xenserver/opt/xensource/www/asset/xoa.jpg
+index 7412539819ffff190dbf79f3a0bd60c559d5c1c6..bfc274d08b62d262f61c38055a52f0f016ababd3 100644
+GIT binary patch
+literal 16317
+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
+
+literal 18869
+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
+
+-- 
+2.49.0
+
